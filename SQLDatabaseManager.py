@@ -6,7 +6,10 @@ import pyodbc
 import pandas as pd
 dir_path = os.path.dirname(os.path.realpath(__file__)) #gets path of file location
 
-## DATABASE MANAGEMENT
+## DATABASE MANAGER
+## TODO: CREATE button feedback that lets user know their action worked. Feedback for errors with connection etc.
+
+
 database = 'master'    ##forcing database to master, for now.
 gui = Tk()
 gui.title('SQL DATABASE MANAGER')
@@ -107,11 +110,11 @@ def CreateDBMenu():             ##CREATE
     returnmenu2 = Button(gui, text="Return",font='Ebrima', command=lambda:[crudDB(),destroyCreateDB()])   
     returnmenu2.place(x=425,y=450)
     
-def CreateDB():                 ##creates a database with name from entry
+def CreateDB():                                 ##creates a database with name from entry
     DBname = createDBentry.get()                ##get name from entry from
     query = "CREATE DATABASE "+DBname+";";      ##create query using name from entry form
     pd.read_sql(query, conn)                    ##query to sql server
-    createNotif = Label(gui,text= DBname+ " Database created! ")              ##
+    createNotif = Label(gui,text= DBname+ " Database created! ") ##TODO create label when user made a DB          
     createNotif.pack()
     print("Created "+createDBentry+ "Database")  
 
@@ -141,10 +144,10 @@ def UpdateDBMenu():             ##UPDATE
     destroycrudMenu()
 
 def UpdateDB():
-    DBname = updateDBentry.get()                ##get name from entry from
+    DBname = updateDBentry.get()                                                     ##get name from entry from
     newDBname = newDBentry.get()
     query = "ALTER DATABASE "+"["+DBname+"]"+" MODIFY NAME = "+"["+newDBname+"]"     ##create query using name from entry form
-    pd.read_sql(query, conn)               ##query to sql server
+    pd.read_sql(query, conn)                                                         ##query to sql server
     print("Updated "+updateDBentry+ "Database with new name as " +newDBname)  
     
 def DeleteDBMenu():             ##DELETE
